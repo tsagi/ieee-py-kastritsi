@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import sys
 import wolframalpha
 from imdbpie import Imdb
 
@@ -74,6 +75,7 @@ def wolframquery(year):
         print('Sorry, I am not sure.')
 
 
-results = wolframquery('2012')
+year = input("You are searching the best selling movies for year:  ")
+results = wolframquery(year)
 for movie, imdb_id in results.items():
     print(movie + ' - http://www.imdb.com/title/' + imdb_id)
