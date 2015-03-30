@@ -4,7 +4,7 @@ import sys
 import wolframalpha
 from imdbpie import Imdb
 
-from flask import Flask, render_template
+from flask import Flask, request, redirect, render_template
 
 def listify(texts):
     '''A method parsing the text from the wolfram alpha pod for the specific question.
@@ -79,6 +79,24 @@ def wolframquery(year):
 
 app = Flask(__name__)
 
+
+@app.route('/')
+def index():
+    '''Shows a page with instructions of how to use this.
+    '''
+
+    return render_template('index.html')
+
+
+@app.route('/', methods=['POST'])
+def year_form_post():
+    '''The form to submit the year.
+    '''
+
+    text = request.form['text']
+    return redirect('/year/' + text, code=302)
+
+
 @app.route('/year/<year>')
 def showforyear(year):
     '''Shows a list of the best selling movies for the year in question.
@@ -90,17 +108,7 @@ def showforyear(year):
 
     results = wolframquery(year)
     return render_template('base.html', movies=results, year=year)
+    
 
-
-@app.route('/')
-def index():
-    '''Shows a page with instructions of how to use this.
-    '''
-
-    text = "<h2>Go to:</h2>\n<p>/year/'year of your choice'</p>\n \
-            <p>on the url bar</p>\n <p>Get <a href='/year/1993'>1993</a> for example!</p>"
-    return text
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
