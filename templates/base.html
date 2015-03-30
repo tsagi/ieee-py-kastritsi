@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>Movies</title>
+</head>
+
+<body>
+<h1>The best selling movies for {{ year }}</h1>
+<ul>
+{% for key, value in movies.items() %}
+<li><a href="http://www.imdb.com/title/{{ value }}">{{ key }}</a></li>
+{% endfor %}
+</ul>
+</body>
+</html>
