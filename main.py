@@ -74,4 +74,6 @@ def wolframquery(year):
         print('Sorry, I am not sure.')
 
 
-print(wolframquery('2012'))
+results = wolframquery('2012')
+for movie, imdb_id in results.items():
+    print(movie + ' - http://www.imdb.com/title/' + imdb_id)
